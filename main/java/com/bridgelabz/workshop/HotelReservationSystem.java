@@ -19,8 +19,9 @@ public class HotelReservationSystem {
 	 * @param weekendRateForRegularCustomer is the rate for regular customer on weekends
 	 * @param weekendRateForRewardCustomer is the rate for reward customer on weekends
 	 */
-	public static void addHotels(String hotelName, int rating, double rateForRegularCustomer, double rateForRewardCustomer,double weekendRateForRegularCustomer,double weekendRateForRewardCustomer) {
+	public boolean addHotels(String hotelName, int rating, double rateForRegularCustomer, double rateForRewardCustomer,double weekendRateForRegularCustomer,double weekendRateForRewardCustomer) {
 		hotelInfo.add(new Hotel(hotelName,rating,rateForRegularCustomer,rateForRewardCustomer,weekendRateForRegularCustomer,weekendRateForRewardCustomer));
+		return true;
 	}
 
 }

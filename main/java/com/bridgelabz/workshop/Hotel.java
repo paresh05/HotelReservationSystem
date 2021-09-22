@@ -1,5 +1,14 @@
 package com.bridgelabz.workshop;
 
+/**
+ * @class member hotelName is the name of the hotel
+ * @class member rating is its rating
+ * @class member rateForRegularCustomer is the rate for regular customer on weekdays
+ * @class member rateForRewardCustomer is the rate for reward customer on weekdays
+ * @class member weekendRateForRegularCustomer is the rate for regular customer on weekends
+ * @class member weekendRateForRewardCustomer is the rate for reward customer on weekends
+ */
+
 public class Hotel {
 	private String hotelName;
 	private int rating;
