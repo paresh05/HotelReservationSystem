@@ -9,9 +9,9 @@ public class HotelReservationSystemTest {
 	
 	@Before
 	public void givenHotelDetailsWhenAddedShouldReturnTrue() {
-		Assert.assertEquals(1,hotelReservationSystem.addHotels("Lakewood",110));
-		Assert.assertEquals(2,hotelReservationSystem.addHotels("Bridgewood",160));
-		Assert.assertEquals(3,hotelReservationSystem.addHotels("Ridgewood",220));
+		Assert.assertEquals(1,hotelReservationSystem.addHotels("Lakewood",110,90));
+		Assert.assertEquals(2,hotelReservationSystem.addHotels("Bridgewood",160,50));
+		Assert.assertEquals(3,hotelReservationSystem.addHotels("Ridgewood",220,150));
 	}
 	
 	@Test

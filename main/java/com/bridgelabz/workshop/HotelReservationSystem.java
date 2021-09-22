@@ -20,8 +20,8 @@ public class HotelReservationSystem {
 	 * @param hotelName is the name of the hotel
 	 * @param rate is the rate of the room for a day
 	 */
-	public int addHotels(String hotelName, double rate) {
-		hotelInfo.add(new Hotel(hotelName,rate));
+	public int addHotels(String hotelName, double rateOnWeekdays, double rateOnWeekends) {
+		hotelInfo.add(new Hotel(hotelName,rateOnWeekdays,rateOnWeekends));
 		return  hotelInfo.size();
 	}
 
@@ -39,20 +39,18 @@ public class HotelReservationSystem {
 		return daysBetween;
 	}
 
-
 	/**
 	 * This method is used to get the cheapest hotel in the list of hotels
 	 * @return the total rate for the number of days of the cheapest hotel
 	 */
 	public int cheapestHotel() {
-		cheapestRate = hotelInfo.get(1).getRate();
+		cheapestRate = hotelInfo.get(1).getRateOnWeekdays();
 		for(Hotel element : hotelInfo) {
-			double hotelrate = element.getRate();
+			double hotelrate = element.getRateOnWeekdays();
 			if(hotelrate <= cheapestRate)
 				cheapestRate = hotelrate;
 		}
-		int totalRate = (int) (cheapestRate*daysBetween);
-		return totalRate;
+		return  (int) (cheapestRate*daysBetween);
 	}
 
 	/**
@@ -61,7 +59,7 @@ public class HotelReservationSystem {
 	 */
 	public String getHotels() {
 		for(Hotel element : hotelInfo) {
-			if(element.getRate() == cheapestRate) {
+			if(element.getRateOnWeekdays() == cheapestRate) {
 				return element.getHotelName();
 			}
 		}
