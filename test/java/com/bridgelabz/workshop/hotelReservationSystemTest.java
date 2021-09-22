@@ -1,19 +1,23 @@
 package com.bridgelabz.workshop;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class HotelReservationSystemTest {
-
+	HotelReservationSystem hotelReservationSystem = new HotelReservationSystem();
+	
+	@Before
+	public void givenHotelDetailsWhenAddedShouldReturnTrue() {
+		Assert.assertEquals(1,hotelReservationSystem.addHotels("Lakewood",110));
+		Assert.assertEquals(2,hotelReservationSystem.addHotels("Bridgewood",160));
+		Assert.assertEquals(3,hotelReservationSystem.addHotels("Ridgewood",220));
+	}
+	
 	@Test
-
-	public void givenCorrectInputShouldReturnTrue() {
-		
-		HotelReservationSystem hotelReservationSystem = new HotelReservationSystem();
-
-		Assert.assertEquals(true,hotelReservationSystem.addHotels("Lakewood",3,110,80.0,90,80));
-		Assert.assertEquals(true,hotelReservationSystem.addHotels("Bridgewood",4,160,110.0,60,50));
-		Assert.assertEquals(true,hotelReservationSystem.addHotels("Ridgewood",5,220,50.0,150,40));
-		
+	public void givenDateCalculateCheapestHotelShouldReturnTrue() {
+		hotelReservationSystem.numberOfDays("10/09/2021", "11/09/2021");
+		Assert.assertEquals(220, hotelReservationSystem.cheapestHotel());
+		Assert.assertEquals(("Lakewood"),(hotelReservationSystem.getHotels()));
 	}
 }
