@@ -8,12 +8,18 @@ import java.util.List;
 
 /**
  * @class member hoteInfo is used to store the information about hotels
+ * @class member cheapestHotel is used to store the hotelName of the cheapest hotels 
+ * @class member cheapestRate is used to store the total rate of the cheapest hotel 
+ * @class member daysBetween is used to store the number of days in the given range of dates
+ * @class member startDay is used to store the day of the start date
  */
 public class HotelReservationSystem {
 
 	public List <Hotel> hotelInfo = new ArrayList<Hotel>(); 
+	public List <String> cheapestHotel= new ArrayList<String>(); 
 	public double cheapestRate;
 	public long daysBetween;
+	public int startDay;
 
 	/**
 	 * This method is used to add the hotel and its information to the hotelInfo ArrayList
@@ -34,35 +40,55 @@ public class HotelReservationSystem {
 	public long numberOfDays(String startDate, String endDate) {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate date1 = LocalDate.parse(startDate,dtf);
+		startDay = date1.getDayOfWeek().getValue();
 		LocalDate date2 = LocalDate.parse(endDate,dtf);
 		daysBetween = (ChronoUnit.DAYS.between(date1, date2)+1);
 		return daysBetween;
 	}
 
-	/**
-	 * This method is used to get the cheapest hotel in the list of hotels
-	 * @return the total rate for the number of days of the cheapest hotel
+	/**This function is used to get the total rates of the hotel when the number of days are passed
+	 * @return totalRate of the hotel 
 	 */
-	public int cheapestHotel() {
-		cheapestRate = hotelInfo.get(1).getRateOnWeekdays();
-		for(Hotel element : hotelInfo) {
-			double hotelrate = element.getRateOnWeekdays();
-			if(hotelrate <= cheapestRate)
-				cheapestRate = hotelrate;
+	public double getTotoalRatesOfHotel(Hotel element) {
+		int day = startDay;
+		double totalRate=0;
+		for(int i = 0;i < daysBetween;i++) {
+			if(day==6||day==7) 
+				totalRate=totalRate+element.getRateOnWeekends();
+			else 
+				totalRate=totalRate+element.getRateOnWeekdays();
+			day++;
+			if(day==8)
+				day=1;
 		}
-		return  (int) (cheapestRate*daysBetween);
+		return totalRate;
 	}
 
 	/**
-	 * This function is used to get the name of the cheapest hotel using its rate
+	 * This method is used to get the cheapest hotel in the list of hotels
+	 * @return the total rate of the cheapest hotel
+	 */
+	public int cheapestHotel() {
+		cheapestRate = getTotoalRatesOfHotel(hotelInfo.get(2));
+		for(Hotel element : hotelInfo) {
+			double hotelrate = getTotoalRatesOfHotel(element);
+			if(hotelrate < cheapestRate) {
+				cheapestRate = hotelrate;
+				cheapestHotel.clear();
+				cheapestHotel.add(element.getHotelName());
+			}
+			else if(hotelrate == cheapestRate) {
+				cheapestHotel.add(element.getHotelName());
+			}
+		}
+		return  (int) (cheapestRate);
+	}
+
+	/**
+	 * This function is used to return the name of the cheapest hotel 
 	 * @return the hotel name of the cheapest hotel
 	 */
 	public String getHotels() {
-		for(Hotel element : hotelInfo) {
-			if(element.getRateOnWeekdays() == cheapestRate) {
-				return element.getHotelName();
-			}
-		}
-		return hotelInfo.get(1).getHotelName();
+		return cheapestHotel.toString();
 	}
 }

@@ -10,14 +10,15 @@ public class HotelReservationSystemTest {
 	@Before
 	public void givenHotelDetailsWhenAddedShouldReturnTrue() {
 		Assert.assertEquals(1,hotelReservationSystem.addHotels("Lakewood",110,90));
-		Assert.assertEquals(2,hotelReservationSystem.addHotels("Bridgewood",160,50));
+		Assert.assertEquals(2,hotelReservationSystem.addHotels("Bridgewood",150,50));
 		Assert.assertEquals(3,hotelReservationSystem.addHotels("Ridgewood",220,150));
 	}
 	
 	@Test
 	public void givenDateCalculateCheapestHotelShouldReturnTrue() {
 		hotelReservationSystem.numberOfDays("10/09/2021", "11/09/2021");
-		Assert.assertEquals(220, hotelReservationSystem.cheapestHotel());
-		Assert.assertEquals(("Lakewood"),(hotelReservationSystem.getHotels()));
+		Assert.assertEquals(200, hotelReservationSystem.cheapestHotel());
+		Assert.assertEquals(("[Lakewood, Bridgewood]"),(hotelReservationSystem.getHotels()));
+		
 	}
 }
