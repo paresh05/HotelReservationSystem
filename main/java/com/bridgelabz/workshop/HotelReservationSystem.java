@@ -24,10 +24,12 @@ public class HotelReservationSystem {
 	/**
 	 * This method is used to add the hotel and its information to the hotelInfo ArrayList
 	 * @param hotelName is the name of the hotel
-	 * @param rate is the rate of the room for a day
+	 * @param rating is the rating of the hotel
+	 * @param rateOnWeekdays is the rate of the room for a day on weekdays
+	 * @param rateOnWeekends is the rate of the room for a day on weekends
 	 */
-	public int addHotels(String hotelName, double rateOnWeekdays, double rateOnWeekends) {
-		hotelInfo.add(new Hotel(hotelName,rateOnWeekdays,rateOnWeekends));
+	public int addHotels(String hotelName, int rating, double rateOnWeekdays, double rateOnWeekends) {
+		hotelInfo.add(new Hotel(hotelName,rating,rateOnWeekdays,rateOnWeekends));
 		return  hotelInfo.size();
 	}
 
