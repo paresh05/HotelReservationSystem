@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * @class member hoteInfo is used to store the information about hotels
  * @class member cheapestHotel is used to store the hotelName of the cheapest hotels 
+ * @class member bestRatedHotel is used to store the hotelName of the best rated hotels 
  * @class member cheapestRate is used to store the total rate of the cheapest hotel 
  * @class member daysBetween is used to store the number of days in the given range of dates
  * @class member startDay is used to store the day of the start date
@@ -16,7 +17,8 @@ import java.util.List;
 public class HotelReservationSystem {
 
 	public List <Hotel> hotelInfo = new ArrayList<Hotel>(); 
-	public List <String> cheapestHotel= new ArrayList<String>(); 
+	public List <String> cheapestHotelList = new ArrayList<String>(); 
+	public List <String> bestRatedHotel = new ArrayList<String>(); 
 	public double cheapestRate;
 	public long daysBetween;
 	public int startDay;
@@ -76,14 +78,35 @@ public class HotelReservationSystem {
 			double hotelrate = getTotoalRatesOfHotel(element);
 			if(hotelrate < cheapestRate) {
 				cheapestRate = hotelrate;
-				cheapestHotel.clear();
-				cheapestHotel.add(element.getHotelName());
+				cheapestHotelList.clear();
+				cheapestHotelList.add(element.getHotelName());
 			}
 			else if(hotelrate == cheapestRate) {
-				cheapestHotel.add(element.getHotelName());
+				cheapestHotelList.add(element.getHotelName());
 			}
 		}
 		return  (int) (cheapestRate);
+	}
+
+	/**This method id used to get the best rated hotels from the list given
+	 * @return rating of the best rated hotel from the list
+	 */
+	public int getBestRating() {
+		int rating=0;
+		for(int i = 0; i < hotelInfo.size();i++) {
+			for(String element : cheapestHotelList) {
+				if(element == hotelInfo.get(i).getHotelName()) {
+					if(hotelInfo.get(i).getRating() > rating) {
+						rating = hotelInfo.get(i).getRating();
+						bestRatedHotel.clear();
+						bestRatedHotel.add(hotelInfo.get(i).getHotelName());
+					}
+					else if(hotelInfo.get(i).getRating() == rating)
+						bestRatedHotel.add(hotelInfo.get(i).getHotelName());
+				}
+			}
+		}
+		return rating;
 	}
 
 	/**
@@ -91,6 +114,14 @@ public class HotelReservationSystem {
 	 * @return the hotel name of the cheapest hotel
 	 */
 	public String getHotels() {
-		return cheapestHotel.toString();
+		return cheapestHotelList.toString();
+	}
+
+	/**
+	 * This function is used to return the name of the best rated hotel 
+	 * @return the hotel name of the best rated hotel
+	 */
+	public String getBestRatedHotels() {
+		return bestRatedHotel.toString();
 	}
 }

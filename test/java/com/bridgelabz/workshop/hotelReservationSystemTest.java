@@ -21,4 +21,13 @@ public class HotelReservationSystemTest {
 		Assert.assertEquals(("[Lakewood, Bridgewood]"),(hotelReservationSystem.getHotels()));
 		
 	}
+	
+	@Test
+	public void givenDateCalculateBestRatedCheapestHotelShouldReturnTrue() {
+		hotelReservationSystem.numberOfDays("10/09/2021", "11/09/2021");
+		Assert.assertEquals(200, hotelReservationSystem.cheapestHotel());
+		Assert.assertEquals(4, hotelReservationSystem.getBestRating());
+		Assert.assertEquals(("[Bridgewood]"),(hotelReservationSystem.getBestRatedHotels()));
+		
+	}
 }
