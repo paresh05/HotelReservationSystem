@@ -18,7 +18,7 @@ public class HotelReservationSystemTest {
 	public void givenDateCalculateCheapestHotelShouldReturnTrue() {
 		hotelReservationSystem.numberOfDays("10/09/2021", "11/09/2021");
 		Assert.assertEquals(200, hotelReservationSystem.cheapestHotel());
-		Assert.assertEquals(("[Lakewood, Bridgewood]"),(hotelReservationSystem.getHotels()));
+		Assert.assertEquals(("[Lakewood, Bridgewood]"),(hotelReservationSystem.getHotels(hotelReservationSystem.cheapestHotelList)));
 		
 	}
 	
@@ -26,8 +26,17 @@ public class HotelReservationSystemTest {
 	public void givenDateCalculateBestRatedCheapestHotelShouldReturnTrue() {
 		hotelReservationSystem.numberOfDays("10/09/2021", "11/09/2021");
 		Assert.assertEquals(200, hotelReservationSystem.cheapestHotel());
-		Assert.assertEquals(4, hotelReservationSystem.getBestRating());
-		Assert.assertEquals(("[Bridgewood]"),(hotelReservationSystem.getBestRatedHotels()));
+		Assert.assertEquals(4, hotelReservationSystem.getBestRating(hotelReservationSystem.cheapestHotelList));
+		Assert.assertEquals(("[Bridgewood]"),(hotelReservationSystem.getHotels(hotelReservationSystem.bestRatedHotel)));
+		
+	}
+	
+	@Test
+	public void givenDateCalculateBestRatedHotelShouldReturnTrue() {
+		hotelReservationSystem.numberOfDays("10/09/2021", "11/09/2021");
+		Assert.assertEquals(5, hotelReservationSystem.getBestRating(hotelReservationSystem.hotelInfo));
+		Assert.assertEquals(("[Ridgewood]"),(hotelReservationSystem.getHotels(hotelReservationSystem.bestRatedHotel)));
+		Assert.assertEquals(370, hotelReservationSystem.getTotoalRatesOfHotel((hotelReservationSystem.bestRatedHotel.get(0))));
 		
 	}
 }
