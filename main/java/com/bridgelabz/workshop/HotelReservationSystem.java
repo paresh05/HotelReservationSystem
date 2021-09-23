@@ -26,12 +26,14 @@ public class HotelReservationSystem {
 	/**
 	 * This method is used to add the hotel and its information to the hotelInfo ArrayList
 	 * @param hotelName is the name of the hotel
-	 * @param rating is the rating of the hotel
-	 * @param rateOnWeekdays is the rate of the room for a day on weekdays
-	 * @param rateOnWeekends is the rate of the room for a day on weekends
+	 * @param rating is its rating
+	 * @param rateForRegularCustomer is the rate for regular customer on weekdays
+	 * @param rateForRewardCustomer is the rate for reward customer on weekdays
+	 * @param weekendRateForRegularCustomer is the rate for regular customer on weekends
+	 * @param weekendRateForRewardCustomer is the rate for reward customer on weekends
 	 */
-	public int addHotels(String hotelName, int rating, double rateOnWeekdays, double rateOnWeekends) {
-		hotelInfo.add(new Hotel(hotelName,rating,rateOnWeekdays,rateOnWeekends));
+	public int addHotels(String hotelName, int rating, double rateForRegularCustomer,double weekendRateForRegularCustomer, double rateForRewardCustomer, double weekendRateForRewardCustomer) {
+		hotelInfo.add(new Hotel(hotelName,rating,rateForRegularCustomer,weekendRateForRegularCustomer,rateForRewardCustomer,weekendRateForRewardCustomer));
 		return  hotelInfo.size();
 	}
 
@@ -58,9 +60,9 @@ public class HotelReservationSystem {
 		double totalRate=0;
 		for(int i = 0;i < daysBetween;i++) {
 			if(day==6||day==7) 
-				totalRate=totalRate+element.getRateOnWeekends();
+				totalRate=totalRate+element.getRateForRegularCustomer();
 			else 
-				totalRate=totalRate+element.getRateOnWeekdays();
+				totalRate=totalRate+element.getWeekendRateForRegularCustomer();
 			day++;
 			if(day==8)
 				day=1;
@@ -85,7 +87,7 @@ public class HotelReservationSystem {
 				cheapestHotelList.add(element);
 			}
 		}
-		return  (int) (cheapestRate);
+		return (int)(cheapestRate);
 	}
 
 	/**This method id used to get the best rated hotels from the list given
