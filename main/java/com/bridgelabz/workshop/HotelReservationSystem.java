@@ -22,6 +22,7 @@ public class HotelReservationSystem {
 	public double cheapestRate;
 	public long daysBetween;
 	public int startDay;
+	public int rewardCustomer;
 
 	/**
 	 * This method is used to add the hotel and its information to the hotelInfo ArrayList
@@ -59,10 +60,18 @@ public class HotelReservationSystem {
 		int day = startDay;
 		double totalRate=0;
 		for(int i = 0;i < daysBetween;i++) {
-			if(day==6||day==7) 
-				totalRate=totalRate+element.getRateForRegularCustomer();
-			else 
-				totalRate=totalRate+element.getWeekendRateForRegularCustomer();
+			if(rewardCustomer == 0) {
+				if(day==6||day==7) 
+					totalRate=totalRate+element.getRateForRegularCustomer();
+				else 
+					totalRate=totalRate+element.getWeekendRateForRegularCustomer();
+			}
+			else if(rewardCustomer == 1) {
+				if(day==6||day==7) 
+					totalRate=totalRate+element.getRateForRewardCustomer();
+				else 
+					totalRate=totalRate+element.getWeekendRateForRewardCustomer();
+			}
 			day++;
 			if(day==8)
 				day=1;
@@ -74,7 +83,8 @@ public class HotelReservationSystem {
 	 * This method is used to get the cheapest hotel in the list of hotels
 	 * @return the total rate of the cheapest hotel
 	 */
-	public int cheapestHotel() {
+	public int cheapestHotel(int customerType) {
+		rewardCustomer = customerType;
 		cheapestRate = getTotoalRatesOfHotel(hotelInfo.get(2));
 		for(Hotel element : hotelInfo) {
 			double hotelrate = getTotoalRatesOfHotel(element);
