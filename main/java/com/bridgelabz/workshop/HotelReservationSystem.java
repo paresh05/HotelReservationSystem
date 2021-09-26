@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @class member hoteInfo is used to store the information about hotels
@@ -43,13 +45,23 @@ public class HotelReservationSystem {
 	 * @param startDate is the beginning of the range of days
 	 * @param endDate is the last day of the range
 	 * @return daysBetween the entered range of days
+	 * @throws HotelReservationException 
 	 */
-	public long numberOfDays(String startDate, String endDate) {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate date1 = LocalDate.parse(startDate,dtf);
-		startDay = date1.getDayOfWeek().getValue();
-		LocalDate date2 = LocalDate.parse(endDate,dtf);
-		daysBetween = (ChronoUnit.DAYS.between(date1, date2)+1);
+	public long numberOfDays(String startDate, String endDate) throws HotelReservationException {
+		String dateRegex = "^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-((19|2[0-9])[0-9]{2})$";
+		Pattern pt = Pattern.compile(dateRegex);
+		Matcher mt = pt.matcher(startDate);
+		boolean result = mt.matches();
+		if(result) {
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+			LocalDate date1 = LocalDate.parse(startDate,dtf);
+			startDay = date1.getDayOfWeek().getValue();
+			LocalDate date2 = LocalDate.parse(endDate,dtf);
+			daysBetween = (ChronoUnit.DAYS.between(date1, date2)+1);
+		}
+		else {
+			throw new HotelReservationException("Please Enter Valid Date");
+		}
 		return daysBetween;
 	}
 
@@ -122,9 +134,7 @@ public class HotelReservationSystem {
 	 */
 	public String getHotels(List<Hotel> hotelList) {
 		List <String> hotelName = new ArrayList<String>(); 
-		for(int i = 0; i < hotelList.size();i++) {
-			hotelName.add(hotelList.get(i).getHotelName());
-		}
+		hotelList.stream().forEach(element -> hotelName.add(element.getHotelName()));
 		return hotelName.toString();
 	}
 }
